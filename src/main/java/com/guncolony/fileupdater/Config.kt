@@ -1,5 +1,8 @@
 package com.guncolony.fileupdater
 
+import org.bukkit.Bukkit
+import java.util.logging.Level
+
 object Config {
     private val plugin: FileUpdater get() = FileUpdater.instance
 
@@ -7,6 +10,7 @@ object Config {
     val pathMap: HashMap<String, List<Path>> = HashMap()
 
     fun loadConfig() {
+        plugin.reloadConfig()
         plugin.saveDefaultConfig()
 
         val config = plugin.config
@@ -15,8 +19,12 @@ object Config {
 
         instanceMap.clear()
         instancesSection.getKeys(false).forEach{
-            val inst = Instances.getInstanceFromConfig(instancesSection.getConfigurationSection(it), it)
-            if(inst != null) instanceMap[it] = inst
+            try {
+                val inst = Instances.getInstanceFromConfig(instancesSection.getConfigurationSection(it), it)
+                if (inst != null) instanceMap[it] = inst
+            } catch (ex: Exception) {
+                Bukkit.getLogger().log(Level.WARNING, "Exception when loading config for host $it", ex)
+            }
         }
 
         instanceMap.clear()

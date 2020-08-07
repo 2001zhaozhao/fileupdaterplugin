@@ -22,11 +22,12 @@ class FileUpdater: JavaPlugin() {
     }
 
     override fun onEnable() {
-        // Load the config file
-        Config.loadConfig()
         instance = this
         fileSystemManager = StandardFileSystemManager()
         fileSystemManager.init()
+
+        // Load the config file
+        Config.loadConfig()
     }
 
     override fun onDisable() {
@@ -38,9 +39,26 @@ class FileUpdater: JavaPlugin() {
             if(args.isEmpty()) {
                 return false
             }
+            if(!sender.hasPermission("fileupdater.use")) {
+                sender.sendMessage("$prefix No permission!")
+                return true
+            }
             when(args[0]) {
                 "update" -> {
+                    if(args.size == 1 && !sender.hasPermission("fileupdater.use.default")) {
+                        sender.sendMessage("$prefix You do not have permission to sync the default list!")
+                        return true
+                    }
+                    if(args.size != 1) {
+                        for(i in 1 until args.size) {
+                            if(!sender.hasPermission("fileupdater.use." + args[i].toLowerCase())) {
+                                sender.sendMessage("$prefix You do not have permission to sync ${args[i]}!")
+                                return true
+                            }
+                        }
+                    }
                     val paths = getConfigPathList(args, 1)
+
                     sender.sendMessage("$prefix Starting transfer of files")
                     // Perform the file copy operation on all remote instances
                     object : BukkitRunnable() {
@@ -50,6 +68,8 @@ class FileUpdater: JavaPlugin() {
                 }
                 "reload" -> {
                     Config.loadConfig()
+                    sender.sendMessage("$prefix Config successfully reloaded")
+                    return true
                 }
             }
             return false

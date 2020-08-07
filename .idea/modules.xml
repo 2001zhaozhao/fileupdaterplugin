@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FileUpdaterPlugin.iml" filepath="$PROJECT_DIR$/.idea/FileUpdaterPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FileUpdater.iml" filepath="$PROJECT_DIR$/FileUpdater.iml" />
     </modules>
   </component>
 </project>

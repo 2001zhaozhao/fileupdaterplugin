@@ -8,12 +8,12 @@ object Instances {
         // SFTP instance
         if(config.getString("type").equals("sftp", ignoreCase = true)) {
             return object : RemoteInstance(config, name) {
-                override val connectionUrl: String = {
+                override val connectionUrl: String get() {
                     val ip = config.getString("ip")
                     val port = config.getString("port")
                     val username = config.getString("username")
                     val password = config.getString("password")
-                    "sftp://$username:$password@$ip:$port"}()
+                    return "sftp://$username:$password@$ip:$port"}
             }
         }
         return null
