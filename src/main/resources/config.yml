@@ -1,0 +1,20 @@
+# FileUpdater configuration file
+
+# Instances are the servers that you want to copy files to.
+# Names are NOT case-sensitive when typed in commands.
+# Note that "local" is predefined to be the local server
+# Currently only the sftp storage type is supported
+Instances:
+  MainServer:
+    type: sftp
+    ip: localhost
+    port: 2222
+    username: user
+    password: pass
+    path: /path/from/ftp/root/to/minecraft/folder # Whether you put a / at the end does not matter
+
+# Paths are the files and folders that you want to copy between servers.
+Paths:
+  Essentials:
+    - folder plugins/Essentials
+    - file plugins/Essentials.jar

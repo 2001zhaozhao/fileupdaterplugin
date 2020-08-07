@@ -1,0 +1,16 @@
+main: com.guncolony.fileupdater.FileUpdater
+name: FileUpdater
+version: '1.0'
+description: Allows you to update files
+load: POSTWORLD
+author: hky
+website: guncolony.com
+commands:
+  fileupdater:
+    description: main FileUpdater command to sync files across servers.
+    aliases:
+    - fu
+    - updater
+    permission: fileupdater.use
+    permission-message: You do not have permission!
+    usage: /<command> send [file]
