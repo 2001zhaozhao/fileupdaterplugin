@@ -48,6 +48,9 @@ class FileUpdater: JavaPlugin() {
                                 sendFiles(LocalInstance, Config.instanceMap.values.toList(), paths, sender)
                     }.runTaskAsynchronously(this)
                 }
+                "reload" -> {
+                    Config.loadConfig()
+                }
             }
             return false
         }
